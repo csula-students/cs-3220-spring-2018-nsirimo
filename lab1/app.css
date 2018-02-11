@@ -1,18 +1,79 @@
 button {
-	color: #fff;
-	background-color: #009688;
+	color: black;
+	background-color: blanchedalmond;
 	font-size: 16px;
-	padding: 0.5em 1em;
 }
 
-table {
-	border: 1px solid red;
-}
-tr {
-	background-color: #ccc;
+body {
+	min-height:100vh;
+	min-width:100vh;
 }
 
-input {
-	font-size: 16px;
-	padding: 0.5em 1em;
+.scrollabletextbox {
+    height:175px;
+    width:100vh;
+    font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif;
+    font-size: 82%;
+	overflow:scroll;
+	margin: 25px;
 }
+
+.collectionHeader {
+	display:flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin: 25px;
+}
+
+.header {
+	margin: 20px;
+}
+
+.resourceAlign{
+	float: left;
+}
+
+#footer {
+	display:flex;
+	justify-content: center;
+	position:absolute;
+	bottom:0;
+	width:100vh;
+	height:60px;
+	background:#6cf;
+ }
+
+ .container {
+	 display: flex;
+	 justify-content: center;
+	 padding: 5px;
+ }
+
+ .resource{
+	 padding: 5px;
+ }
+
+ .resource .card{
+	margin: 10px;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+	padding: 5px;
+ }
+
+ .resource > p {
+	padding:5px;
+ }
+
+ .resource .card:hover{
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+ }
+
+ .resource .header {
+	 padding: 5px;
+ }
+
+ .resource .btn {
+	display:flex;
+	flex-direction: row;
+	justify-content: space-between;
+ }
