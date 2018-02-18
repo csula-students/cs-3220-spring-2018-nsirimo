@@ -1,0 +1,26 @@
+
+<html>
+
+<p>Pick one a number bruh.</p>
+<button id="butt" type="button">Guess a number bro</button>
+
+<script>
+var randomNumber = Math.floor(Math.random() * 10 + 0);
+document.getElementById("butt").addEventListener("click", function() {
+inputNumber();
+});
+
+function inputNumber (){
+    var number = prompt("DO IT BRO I DARE YOU");
+    console.log("Prompt: " + number);
+    console.log(randomNumber);
+    if(number == randomNumber){
+        alert("WOOOOOOOOOOOOOOOOOO");
+    }
+    else{
+        alert("no");
+    }
+};
+
+</script>
+</html>

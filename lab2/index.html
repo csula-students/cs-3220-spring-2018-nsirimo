@@ -2,6 +2,16 @@
 
 <html lang="en">
 
+<script>
+    window.incrementalGame = {
+        state: {
+            counter: 0
+        }
+    };
+</script>
+
+<script type="text/javascript" src="app.js"></script>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,20 +38,20 @@
     <li class="container resource">
         <ul class="resource card">
             <span class="resource btn">
-                <div class="resource header">Resource 1</div>
+                <div class="resource header">Doge Coin</div>
                 <span class="resource header">0</span>
             </span>
             <p>This is some information about the resource that I will be adding here. Good stuf I promise! Somethign about
                 Doge? Idk.
             </p>
             <span class="resource btn">
-                5/10
-                <button>Resource</button>
+                2/10
+                <button onClick="increaseCount(window.incrementalGame.state.counter)">Collect DogeCoin</button>
             </span>
         </ul>
         <ul class="resource card">
             <span class="resource btn">
-                <div class="resource header">Resource 2</div>
+                <div class="resource header">Woofers</div>
                 <span class="resource header">0</span>
             </span>
             <p>This is some information about the resource that I will be adding here. Good stuf I promise! Somethign about
@@ -49,20 +59,20 @@
             </p>
             <span class="resource btn">
                 5/10
-                <button>Resource</button>
+                <button>Collect Woofers</button>
             </span>
         </ul>
         <ul class="resource card">
             <span class="resource btn">
-                <div class="resource header">Resource 3</div>
+                <div class="resource header">Bork Power</div>
                 <span class="resource header">0</span>
             </span>
             <p>This is some information about the resource that I will be adding here. Good stuf I promise! Somethign about
                 Doge? Idk.
             </p>
             <span class="resource btn">
-                5/10
-                <button>Resource</button>
+                9/10
+                <button>Collect Borks</button>
             </span>
         </ul>
     </li>
