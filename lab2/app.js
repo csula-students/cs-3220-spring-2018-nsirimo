@@ -20,13 +20,17 @@ class PubSub {
 
 
 function increaseCount(state) {
-    state.counter ++;
     const pubSub = new PubSub();
+
+    state.counter ++;
+
     pubSub.subscribe(countNum => {
         console.log(countNum);
         console.log(countNum.counter);
         console.log(typeof(countNum));
+        window.document.getElementById("counter").innerHTML = state.counter;
     });
+
     pubSub.publish(state);
     window.document.getElementById("counter").innerHTML = state.counter;
  }
