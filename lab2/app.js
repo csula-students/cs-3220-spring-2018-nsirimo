@@ -22,16 +22,16 @@ class PubSub {
 function increaseCount(state) {
     const pubSub = new PubSub();
 
-    state.counter ++;
+    state.counterDoge ++;
 
     pubSub.subscribe(countNum => {
         console.log(countNum);
-        console.log(countNum.counter);
+        console.log(countNum.counterDoge);
         console.log(typeof(countNum));
-        window.document.getElementById("counter").innerHTML = state.counter;
+        window.document.getElementById("counterDoge").innerHTML = state.counterDoge;
     });
 
     pubSub.publish(state);
-    window.document.getElementById("counter").innerHTML = state.counter;
+    window.document.getElementById("counterDoge").innerHTML = state.counterDoge;
  }
 

@@ -29,13 +29,15 @@
         <ul class="resource card">
             <span class="resource btn">
                 <div class="resource header">Doge Coin</div>
-                <span class="resource header">0</span>
+                <span class="resource header">
+                    <div id="counterDoge">0</div>
+                </span>
             </span>
             <p>This is some information about the resource that I will be adding here. Good stuf I promise! Somethign about
                 Doge? Idk.
             </p>
             <span class="resource btn">
-                <div id="counter"></div>
+                5/200
                 <button onClick="increaseCount(window.incrementalGame.state)">Collect DogeCoin</button>
             </span>
         </ul>
@@ -74,7 +76,7 @@
     <script>
         window.incrementalGame = {
             state: {
-                counter: 0
+                counterDoge: 0
             }
         };
     </script>
