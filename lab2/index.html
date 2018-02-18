@@ -2,16 +2,6 @@
 
 <html lang="en">
 
-<script>
-    window.incrementalGame = {
-        state: {
-            counter: 0
-        }
-    };
-</script>
-
-<script type="text/javascript" src="app.js"></script>
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -45,8 +35,8 @@
                 Doge? Idk.
             </p>
             <span class="resource btn">
-                2/10
-                <button onClick="">Collect DogeCoin</button>
+                <div id="counter"></div>
+                <button onClick="increaseCount(window.incrementalGame.state)">Collect DogeCoin</button>
             </span>
         </ul>
         <ul class="resource card">
@@ -81,6 +71,14 @@
         <h6>Copywrite Nicolas Sirimongkol CS3220 Spring 2018</h6>
     </footer>
 
+    <script>
+        window.incrementalGame = {
+            state: {
+                counter: 0
+            }
+        };
+    </script>
+    <script type="text/javascript" src="app.js"></script>
 </body>
 
 </html>
