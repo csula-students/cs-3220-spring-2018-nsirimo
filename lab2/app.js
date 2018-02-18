@@ -18,16 +18,12 @@ class PubSub {
     }
 }
 
+const pubSub = new PubSub();
 
-function increaseCount(state) {
-    const pubSub = new PubSub();
-
+function increaseDoge(state) {
     state.counterDoge ++;
 
     pubSub.subscribe(countNum => {
-        console.log(countNum);
-        console.log(countNum.counterDoge);
-        console.log(typeof(countNum));
         window.document.getElementById("counterDoge").innerHTML = state.counterDoge;
     });
 
@@ -35,3 +31,24 @@ function increaseCount(state) {
     window.document.getElementById("counterDoge").innerHTML = state.counterDoge;
  }
 
+ function increaseWoof(state) {
+    state.counterWoof ++;
+
+    pubSub.subscribe(countNum => {
+        window.document.getElementById("counterWoof").innerHTML = state.counterWoof;
+    });
+
+    pubSub.publish(state);
+    window.document.getElementById("counterWoof").innerHTML = state.counterWoof;
+ }
+
+ function increaseBork(state) {
+    state.counterBork ++;
+
+    pubSub.subscribe(countNum => {
+        window.document.getElementById("counterBork").innerHTML = state.counterBork;
+    });
+
+    pubSub.publish(state);
+    window.document.getElementById("counterBork").innerHTML = state.counterBork;
+ }

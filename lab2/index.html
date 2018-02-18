@@ -33,38 +33,50 @@
                     <div id="counterDoge">0</div>
                 </span>
             </span>
-            <p>This is some information about the resource that I will be adding here. Good stuf I promise! Somethign about
-                Doge? Idk.
+            <p class="description">Doge Coin, a rare comodity is used to pay our lord Doge god. You can also buy everyday things with your Doge
+                coin!
+            </p>
+            <p>
+                Doge Coin will generate at 5 per 10 seconds!
             </p>
             <span class="resource btn">
                 5/200
-                <button onClick="increaseCount(window.incrementalGame.state)">Collect DogeCoin</button>
+                <button onClick="increaseDoge(window.incrementalGame.state)">Collect DogeCoin</button>
             </span>
         </ul>
         <ul class="resource card">
             <span class="resource btn">
                 <div class="resource header">Woofers</div>
-                <span class="resource header">0</span>
+                <span class="resource header">
+                    <div id="counterWoof">0</div>
+                </span>
             </span>
-            <p>This is some information about the resource that I will be adding here. Good stuf I promise! Something about
-                Doge? Idk.
+            <p class="description">Woof Coin, a rare comodity is used to pay for shotouts to our lord! Please buy shoutouts to our great lord!
+            </p>
+            <p>
+                Woof Coin will generate at 1 per 10 seconds!
             </p>
             <span class="resource btn">
-                5/10
-                <button>Collect Woofers</button>
+                1/10
+                <button onClick="increaseWoof(window.incrementalGame.state)">Collect Woofers</button>
             </span>
         </ul>
         <ul class="resource card">
             <span class="resource btn">
                 <div class="resource header">Bork Power</div>
-                <span class="resource header">0</span>
+                <span class="resource header">
+                    <div id="counterBork">0</div>
+                </span>
             </span>
-            <p>This is some information about the resource that I will be adding here. Good stuf I promise! Somethign about
-                Doge? Idk.
+            <p class="description">Bork Power! You should buy this so that you can move up in the ranks of our army of believers. The more Bork
+                the better.
+            </p>
+            <p>
+                Bork Power will generate at 1 per 10 seconds!
             </p>
             <span class="resource btn">
-                9/10
-                <button>Collect Borks</button>
+                1/10
+                <button onClick="increaseBork(window.incrementalGame.state)">Collect Borks</button>
             </span>
         </ul>
     </li>
@@ -76,7 +88,9 @@
     <script>
         window.incrementalGame = {
             state: {
-                counterDoge: 0
+                counterDoge: 0,
+                counterWoof: 0,
+                counterBork: 0
             }
         };
     </script>

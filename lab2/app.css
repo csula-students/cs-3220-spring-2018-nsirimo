@@ -1,3 +1,7 @@
+.description {
+	overflow-wrap: break-word;
+}
+
 button {
 	color: black;
 	background-color: blanchedalmond;
