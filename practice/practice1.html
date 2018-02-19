@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<style>
+    .foo {
+        float: left;
+        width: 20px;
+        height: 20px;
+        margin: 5px;
+        border: 1px solid rgba(0, 0, 0, .2);
+    }
+
+    .blue {
+        background: #13b4ff;
+    }
+
+    .purple {
+        background: #ab3fdd;
+    }
+
+    .wine {
+        background: #ae163e;
+    }
+</style>
+
+<body>
+    <span type="button" class="foo purple">
+    </span>
+</body>
+
+<script>
+    var dom = document.querySelector('.foo');
+
+    const colors =[' blue', ' purple', ' wine'];
+    var index = 1;
+
+    dom.addEventListener('click', function () {
+        const oldColor = getColor(colors, index);
+        if (oldColor) {
+            dom.classList.remove(oldColor);
+        }
+        index++;
+        index = index % colors.length;
+        dom.classList.add(newColor);
+    });
+
+    function getColor (colors, index) {
+        if(index < 0) {
+            return '';
+        }
+        return colors[index];
+    }
+
+</script>
