@@ -15,9 +15,14 @@
         <h1>Doge Coin Farmer</h1>
     </header>
     <div class="collectionHeader">
-        <h3>Doge Coin</h3>
+        <span class="resource header">
+            <h3>Doge Coin</h3>
+            <div id="counterCoin">0</div>
+        </span>
+
         <span>
-            <button class="collectionHeader button">Collect Coins</button>
+
+            <button class="collectionHeader button" onClick="increaseCoins(winodw.incrementalGame.state)">Collect Coins</button>
         </span>
     </div>
 
@@ -90,7 +95,8 @@
             state: {
                 counterDoge: 0,
                 counterWoof: 0,
-                counterBork: 0
+                counterBork: 0,
+                counterCoin: 0
             }
         };
     </script>
