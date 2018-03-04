@@ -10,7 +10,7 @@ export default function (store) {
 			// hint: use "store.dispatch" method (see example component)
 			this.addEventListener('click', () => {
 				console.log("BUTTON CLICKED YOOOOO");
-				this.store.dispatch({type: 'COUNT_UP'});
+				this.store.dispatch({type: 'BUTTON_CLICK'});
 			});
 		}
 	};

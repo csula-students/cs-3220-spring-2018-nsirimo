@@ -1,3 +1,5 @@
+import { Generator } from "../models/generator";
+
 export default function (store) {
 	return class GeneratorComponent extends window.HTMLElement {
 		constructor() {
@@ -7,11 +9,14 @@ export default function (store) {
 			// TODO: render generator initial view
 			this.onStateChange = this.handleStateChange.bind(this);
 			// TODO: subscribe to store on change event
-
 			// TODO: add click event
 			this.addEventListener('click', () => {
 				this.store.dispatch({
-					type:'BUY_GENERATOR'
+					type:'BUY_GENERATOR',
+					payload: {
+						name: this.store.state.generators[this.dataset.id].name,
+						count: this.store.state.generators[this.dataset.id].quantity
+					}
 				})
 			})
 		}
