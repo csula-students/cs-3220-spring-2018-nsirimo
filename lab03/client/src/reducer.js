@@ -4,9 +4,8 @@ export default function reducer(state, action) {
 		state.generators.forEach((generator) => {
 			if (generator.name == action.payload.name) {
 				state.counter = state.counter - generator.baseCost;
-				generator.quantity = generator.quantity + action.payload.quantity;
-
-				return state;
+				generator.quantity++;
+				return generator;
 			}
 		});
 		case constants.actions.BUTTON_CLICK:

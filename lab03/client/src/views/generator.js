@@ -25,14 +25,34 @@ export default function (store) {
 			console.log("Purchased a gen!");
 		}
 
-		connectedCallback() {
+		connectedCallback () {
 			console.log("genOnCallback");
+			this.id = this.dataset.id;
+			this.innerHTML = this.render();
 			this.store.subscribe(this.onStateChange);
 		}
 
-		disconnectedCallback() {
+		disconnectedCallback () {
 			console.log("genonDisCalled");
+			this.innerHTML = this.render();
 			this.store.unsubscribe(this.onStateChange);
+		}
+
+		render () {
+			return `<ul class="resource card">
+            <span class="resource btn">
+                <div class="resource header">${this.store.state.generators[this.dataset.id].name}</div>
+                <span class="resource header">
+                    <div id="counterDoge">${this.store.state.generators[this.dataset.id].quantity}</div>
+                </span>
+            </span>
+            <p class="description">${this.store.state.generators[this.dataset.id].description}</p>
+            <p>${this.store.state.generators[this.dataset.id].rate}</p>
+            <span class="resource btn">
+                ${this.store.state.generators[this.dataset.id].baseCost}
+                <button>Buy ${this.store.state.generators[this.dataset.id].name}</button>
+            </span>
+        </ul>`;
 		}
 	};
 }

@@ -98,7 +98,7 @@ var _generator = __webpack_require__(10);
 
 var _generator2 = _interopRequireDefault(_generator);
 
-var _storyBook = __webpack_require__(11);
+var _storyBook = __webpack_require__(13);
 
 var _storyBook2 = _interopRequireDefault(_storyBook);
 
@@ -699,15 +699,13 @@ exports.default = reducer;
 function reducer(state, action) {
 	switch (action.type) {
 		case 'BUY_GENERATOR':
-			console.log("action ", action);
-			console.log("action.payload: ", action.payload);
-			// if (state.generators.name == action.payload.name) {
-			// 	state.counter = state.counter - state.generators.baseCost;
-			// 	state.generators.quantity = state.generators.quantity + action.payload.quantity;
-
-			return state;
-		//}
-
+			state.generators.forEach(generator => {
+				if (generator.name == action.payload.name) {
+					state.counter = state.counter - generator.baseCost;
+					generator.quantity++;
+					return generator;
+				}
+			});
 		case constants.actions.BUTTON_CLICK:
 			return state;
 		default:
@@ -738,7 +736,7 @@ exports.default = function (store) {
 			// hint: use "store.dispatch" method (see example component)
 			this.addEventListener('click', () => {
 				console.log("BUTTON CLICKED YOOOOO");
-				this.store.dispatch({ type: 'COUNT_UP' });
+				this.store.dispatch({ type: 'BUTTON_CLICK' });
 			});
 		}
 	};
@@ -848,12 +846,14 @@ exports.default = function (store) {
 			// TODO: render generator initial view
 			this.onStateChange = this.handleStateChange.bind(this);
 			// TODO: subscribe to store on change event
-
 			// TODO: add click event
 			this.addEventListener('click', () => {
 				this.store.dispatch({
 					type: 'BUY_GENERATOR',
-					payload: 'hello'
+					payload: {
+						name: this.store.state.generators[this.dataset.id].name,
+						count: this.store.state.generators[this.dataset.id].quantity
+					}
 				});
 			});
 		}
@@ -864,18 +864,117 @@ exports.default = function (store) {
 
 		connectedCallback() {
 			console.log("genOnCallback");
+			this.id = this.dataset.id;
+			this.innerHTML = this.render();
 			this.store.subscribe(this.onStateChange);
 		}
 
 		disconnectedCallback() {
 			console.log("genonDisCalled");
+			this.innerHTML = this.render();
 			this.store.unsubscribe(this.onStateChange);
+		}
+
+		render() {
+			return `<ul class="resource card">
+            <span class="resource btn">
+                <div class="resource header">${this.store.state.generators[this.dataset.id].name}</div>
+                <span class="resource header">
+                    <div id="counterDoge">${this.store.state.generators[this.dataset.id].quantity}</div>
+                </span>
+            </span>
+            <p class="description">${this.store.state.generators[this.dataset.id].description}</p>
+            <p>${this.store.state.generators[this.dataset.id].rate}</p>
+            <span class="resource btn">
+                ${this.store.state.generators[this.dataset.id].baseCost}
+                <button>Buy ${this.store.state.generators[this.dataset.id].name}</button>
+            </span>
+        </ul>`;
 		}
 	};
 };
 
+var _generator = __webpack_require__(11);
+
 /***/ }),
 /* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _constants = __webpack_require__(12);
+
+var _constants2 = _interopRequireDefault(_constants);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class Generator {
+	/**
+  * Create a new generator based on the meta object passing in
+  * @constructor
+  * @param {object} meta - meta object for constructing generator
+  */
+	constructor(meta) {
+		this.type = meta.type;
+		this.name = meta.name;
+		this.description = meta.description;
+		this.rate = meta.rate;
+		this.quantity = meta.quantity;
+		this.baseCost = meta.baseCost;
+		this.unlockValue = meta.unlockValue;
+	}
+
+	/**
+  * getCost computes cost exponentially based on quantity (as formula below)
+  * xt = x0(1 + r)^t
+  * which
+  * xt is the value of x with t quantity
+  * x0 is base value
+  * r is growth ratio (see constants.growthRatio)
+  * t is the quantity
+  * @return {number} the cost of buying another generator
+  */
+	getCost() {
+		return Math.round(this.baseCost * Math.pow(1 + _constants2.default.growthRatio, this.quantity)) / 100;
+	}
+
+	/**
+  * generate computes how much this type of generator generates -
+  * rate * quantity
+  * @return {number} how much this generator generates
+  */
+	generate() {
+		// TODO: implement based on doc above
+		return this.rate * this.quantity;
+	}
+}
+exports.default = Generator;
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = {
+	growthRatio: 0.05,
+	actions: {
+		EXAMPLE: 'EXAMPLE_MUTATION',
+		BUY_GENERATOR: 'BUY_GENERATOR'
+	}
+};
+
+/***/ }),
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
