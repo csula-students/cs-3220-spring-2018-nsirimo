@@ -20,28 +20,28 @@ function main() {
 		counter: 0,
 		generators: [
 			{
-				name = 'Doge Click',
-				description = 'Doge Coin, is a rare comodity and is used to pay our lord Doge God.',
-				rate = 5,
-				quantity = 0,
-				baseCost = 25,
-				unlockValue = 10
+				name:'Doge Click',
+				description: 'Doge Coin, is a rare comodity and is used to pay our lord Doge God.',
+				rate: 5,
+				quantity: 0,
+				baseCost: 25,
+				unlockValue: 10
 			},
 			{
-				name = 'Bork Power',
-				description = 'Bork Bork Bork Bork Bork Bork *laughs in Dog*',
-				rate = 10,
-				quantity = 0,
-				baseCost = 25,
-				unlockValue = 20
+				name: 'Bork Power',
+				description: 'Bork Bork Bork Bork Bork Bork *laughs in Dog*',
+				rate: 10,
+				quantity: 0,
+				baseCost: 25,
+				unlockValue: 20
 			},
 			{
-				name = 'Woofer',
-				description = 'Woof so strong the coins just flow out!',
-				rate = 25,
-				quantity = 0,
-				baseCost = 100,
-				unlockValue = 60
+				name: 'Woofer',
+				description: 'Woof so strong the coins just flow out!',
+				rate: 25,
+				quantity: 0,
+				baseCost: 100,
+				unlockValue: 60
 			}
 		],
 		story: []

@@ -15,11 +15,4 @@ export default function (store) {
 		}
 	};
 
-
-	function counterUp() {
-		pubSub.publish({
-			type: 'COUNTER_UP',
-			payload: window.incrementalGame.state
-		});
-	}
 }

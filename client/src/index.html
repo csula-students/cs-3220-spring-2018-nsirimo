@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="app.css">
+    <title>Doge Coin Farm</title>
+</head>
+
+<body>
+    <header class="header">
+        <h1>Doge Coin Farmer</h1>
+    </header>
+    <div class="collectionHeader">
+        <span class="resource header">
+            <h3>Doge Coin</h3>
+            <div id="counterCoin">0</div>
+        </span>
+
+        <span>
+
+            <button class="collectionHeader button" onClick="increaseCoins(winodw.incrementalGame.state)">Collect Coins</button>
+        </span>
+    </div>
+
+    <div>
+        <textarea class="scrollabletextbox" name="note" readonly="true">{Story line 1...}</textarea>
+    </div>
+
+    <li class="container resource">
+        <ul class="resource card">
+            <span class="resource btn">
+                <div class="resource header">Doge Coin</div>
+                <span class="resource header">
+                    <div id="counterDoge">0</div>
+                </span>
+            </span>
+            <p class="description">Doge Coin, a rare comodity is used to pay our lord Doge god. You can also buy everyday things with your Doge
+                coin!
+            </p>
+            <p>
+                Doge Coin will generate at 5 per 10 seconds!
+            </p>
+            <span class="resource btn">
+                5/200
+                <game-generator data-id="0">
+                    <button>Collect DogeCoin</button>
+                </game-generator>
+            </span>
+        </ul>
+        <ul class="resource card">
+            <span class="resource btn">
+                <div class="resource header">Woofers</div>
+                <span class="resource header">
+                    <div id="counterWoof">0</div>
+                </span>
+            </span>
+            <p class="description">Woof Coin, a rare comodity is used to pay for shotouts to our lord! Please buy shoutouts to our great lord!
+            </p>
+            <p>
+                Woof Coin will generate at 1 per 10 seconds!
+            </p>
+            <span class="resource btn">
+                1/10
+                <button onClick="increaseWoof(window.incrementalGame.state)">Collect Woofers</button>
+            </span>
+        </ul>
+        <ul class="resource card">
+            <span class="resource btn">
+                <div class="resource header">Bork Power</div>
+                <span class="resource header">
+                    <div id="counterBork">0</div>
+                </span>
+            </span>
+            <p class="description">Bork Power! You should buy this so that you can move up in the ranks of our army of believers. The more Bork
+                the better.
+            </p>
+            <p>
+                Bork Power will generate at 1 per 10 seconds!
+            </p>
+            <span class="resource btn">
+                1/10
+                <button onClick="increaseBork(window.incrementalGame.state)">Collect Borks</button>
+            </span>
+        </ul>
+    </li>
+
+    <footer id="footer">
+        <h6>Copywrite Nicolas Sirimongkol CS3220 Spring 2018</h6>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/1.1.0/webcomponents-lite.js"></script>
+
+    <script src ="../dest/app.bundle.js"> </script>
+</body>
+
+</html>

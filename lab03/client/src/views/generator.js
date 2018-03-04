@@ -9,7 +9,7 @@ export default function (store) {
 			// TODO: subscribe to store on change event
 
 			// TODO: add click event
-			this.addEventListener('click', e => {
+			this.addEventListener('click', () => {
 				this.store.dispatch({
 					type:'BUY_GENERATOR'
 				})
