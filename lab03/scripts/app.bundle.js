@@ -699,17 +699,12 @@ exports.default = reducer;
 function reducer(state, action) {
 	switch (action.type) {
 		case 'BUY_GENERATOR':
-			console.log("action ", action);
-			console.log("action.payload: ", action.payload);
-			// if (state.generators.name == action.payload.name) {
-			// 	state.counter = state.counter - state.generators.baseCost;
-			// 	state.generators.quantity = state.generators.quantity + action.payload.quantity;
+			if (state.generators.name == actiono.payload.name) {
+				state.counter = state.counter - state.generators.baseCost;
+				state.generators.quantity = state.generators.quantity + action.payload.quantity;
 
-			return state;
-		//}
-
-		case constants.actions.BUTTON_CLICK:
-			return state;
+				return state;
+			}
 		default:
 			return state;
 	}
@@ -742,6 +737,13 @@ exports.default = function (store) {
 			});
 		}
 	};
+
+	function counterUp() {
+		pubSub.publish({
+			type: 'COUNTER_UP',
+			payload: window.incrementalGame.state
+		});
+	}
 };
 
 /***/ }),
@@ -850,10 +852,9 @@ exports.default = function (store) {
 			// TODO: subscribe to store on change event
 
 			// TODO: add click event
-			this.addEventListener('click', () => {
+			this.addEventListener('click', e => {
 				this.store.dispatch({
-					type: 'BUY_GENERATOR',
-					payload: 'hello'
+					type: 'BUY_GENERATOR'
 				});
 			});
 		}
