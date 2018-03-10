@@ -1,24 +1,34 @@
 export default function (store) {
 	return class CounterComponent extends window.HTMLElement {
-		constructor () {
+		constructor() {
 			super();
 			this.store = store;
-			// TODO: render counter inner HTML based on the store state
 
 			this.onStateChange = this.handleStateChange.bind(this);
 		}
 
-		handleStateChange (newState) {
-			console.log('CounterComponent#stateChange', this, newState);
-			// TODO: update inner HTML based on the new state
+		handleStateChange(state) {
+			this.innerHTML = this.render();
 		}
 
-		connectedCallback () {
+		connectedCallback() {
+			this.innerHTML = this.render();
 			this.store.subscribe(this.onStateChange);
 		}
 
-		disconnectedCallback () {
+		disconnectedCallback() {
+			this.innerHTML = this.render();
 			this.store.unsubscribe(this.onStateChange);
+		}
+
+		render() {
+			return `<span class="resource header">
+            			<h3>Doge Coin</h3>
+            			<div id="counterCoin">${this.store.state.counter}</div>
+        			</span>
+        			<span>
+						<game-button></game-button>
+        			</span>`
 		}
 	};
 }

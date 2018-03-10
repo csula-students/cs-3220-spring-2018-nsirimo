@@ -3,15 +3,18 @@ export default function (store) {
 		constructor () {
 			super();
 			this.store = store;
-
-			this.onStateChange = this.handleStateChange.bind(this);
-
+			this.innerHTML = this.render();
 			// TODO: add click event to increment counter
 			// hint: use "store.dispatch" method (see example component)
 			this.addEventListener('click', () => {
-				console.log("BUTTON CLICKED YOOOOO");
 				this.store.dispatch({type: 'BUTTON_CLICK'});
 			});
+		}
+
+		render () {
+			return `
+			<button class="collectionHeader button">Collect Coins</button>
+			`
 		}
 	};
 

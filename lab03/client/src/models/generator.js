@@ -27,7 +27,8 @@ export default class Generator {
 	 * @return {number} the cost of buying another generator
 	 */
 	getCost () {
-		return (Math.round((this.baseCost*(Math.pow(1 + constants.growthRatio, this.quantity)))))/100 ;
+		const result = this.baseCost * Math.pow((1 + constants.growthRatio), this.quantity);
+		return (result % 1 != 0) ? parseFloat(result.toFixed(2)) : parseInt(result);
 	}
 
 	/**

@@ -1,45 +1,34 @@
-import { Generator } from "../models/generator";
+import { Generator } from '../models/generator';
 
 export default function (store) {
 	return class GeneratorComponent extends window.HTMLElement {
 		constructor() {
 			super();
 			this.store = store;
-
+			this.render();
 			// TODO: render generator initial view
 			this.onStateChange = this.handleStateChange.bind(this);
 			// TODO: subscribe to store on change event
 			// TODO: add click event
-			this.addEventListener('click', () => {
-				this.store.dispatch({
-					type:'BUY_GENERATOR',
-					payload: {
-						name: this.store.state.generators[this.dataset.id].name,
-						count: this.store.state.generators[this.dataset.id].quantity
-					}
-				})
-			})
 		}
 
-		handleStateChange (state) {
-			console.log("Purchased a gen!");
+		handleStateChange () {
+			this.render();
 		}
 
 		connectedCallback () {
-			console.log("genOnCallback");
 			this.id = this.dataset.id;
-			this.innerHTML = this.render();
+			this.render();
 			this.store.subscribe(this.onStateChange);
 		}
 
 		disconnectedCallback () {
-			console.log("genonDisCalled");
-			this.innerHTML = this.render();
+			this.render();
 			this.store.unsubscribe(this.onStateChange);
 		}
 
 		render () {
-			return `<ul class="resource card">
+			this.innerHTML = `<ul class="resource card">
             <span class="resource btn">
                 <div class="resource header">${this.store.state.generators[this.dataset.id].name}</div>
                 <span class="resource header">
@@ -52,7 +41,17 @@ export default function (store) {
                 ${this.store.state.generators[this.dataset.id].baseCost}
                 <button>Buy ${this.store.state.generators[this.dataset.id].name}</button>
             </span>
-        </ul>`;
+		</ul>`;
+
+		this.querySelector('button').addEventListener('click', () => {
+			this.store.dispatch({
+				type:'BUY_GENERATOR',
+				payload: {
+					name: this.store.state.generators[this.dataset.id].name,
+					count: this.store.state.generators[this.dataset.id].quantity
+				}
+			});
+		});
 		}
 	};
 }

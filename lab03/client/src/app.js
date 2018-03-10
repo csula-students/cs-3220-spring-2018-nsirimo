@@ -32,7 +32,7 @@ function main() {
 				description: 'Bork Bork Bork Bork Bork Bork *laughs in Dog*',
 				rate: 10,
 				quantity: 0,
-				baseCost: 25,
+				baseCost: 75,
 				unlockValue: 20
 			},
 			{
@@ -40,7 +40,7 @@ function main() {
 				description: 'Woof so strong the coins just flow out!',
 				rate: 25,
 				quantity: 0,
-				baseCost: 100,
+				baseCost: 150,
 				unlockValue: 60
 			}
 		],
@@ -49,7 +49,6 @@ function main() {
 
 	// initialize store
 	const store = new Store(reducer, initialState);
-	console.log(ExampleComponent(store));
 
 	// define web components
 	window.customElements.define('component-example', ExampleComponent(store));
