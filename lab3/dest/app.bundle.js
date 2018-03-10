@@ -98,7 +98,7 @@ var _generator = __webpack_require__(10);
 
 var _generator2 = _interopRequireDefault(_generator);
 
-var _storyBook = __webpack_require__(13);
+var _storyBook = __webpack_require__(11);
 
 var _storyBook2 = _interopRequireDefault(_storyBook);
 
@@ -124,14 +124,14 @@ function main() {
 			description: 'Bork Bork Bork Bork Bork Bork *laughs in Dog*',
 			rate: 10,
 			quantity: 0,
-			baseCost: 25,
+			baseCost: 75,
 			unlockValue: 20
 		}, {
 			name: 'Woofer',
 			description: 'Woof so strong the coins just flow out!',
 			rate: 25,
 			quantity: 0,
-			baseCost: 100,
+			baseCost: 150,
 			unlockValue: 60
 		}],
 		story: []
@@ -139,7 +139,6 @@ function main() {
 
 	// initialize store
 	const store = new _store2.default(_reducer2.default, initialState);
-	console.log((0, _example2.default)(store));
 
 	// define web components
 	window.customElements.define('component-example', (0, _example2.default)(store));
@@ -701,12 +700,13 @@ function reducer(state, action) {
 		case 'BUY_GENERATOR':
 			state.generators.forEach(generator => {
 				if (generator.name == action.payload.name) {
-					state.counter = state.counter - generator.baseCost;
+					state.counter = state.counter - (generator.baseCost + 1);
 					generator.quantity++;
 					return generator;
 				}
 			});
-		case constants.actions.BUTTON_CLICK:
+		case 'BUTTON_CLICK':
+			state.counter++;
 			return state;
 		default:
 			return state;
@@ -729,15 +729,18 @@ exports.default = function (store) {
 		constructor() {
 			super();
 			this.store = store;
-
-			this.onStateChange = this.handleStateChange.bind(this);
-
+			this.innerHTML = this.render();
 			// TODO: add click event to increment counter
 			// hint: use "store.dispatch" method (see example component)
 			this.addEventListener('click', () => {
-				console.log("BUTTON CLICKED YOOOOO");
 				this.store.dispatch({ type: 'BUTTON_CLICK' });
 			});
+		}
+
+		render() {
+			return `
+			<button class="collectionHeader button">Collect Coins</button>
+			`;
 		}
 	};
 };
@@ -758,22 +761,32 @@ exports.default = function (store) {
 		constructor() {
 			super();
 			this.store = store;
-			// TODO: render counter inner HTML based on the store state
 
 			this.onStateChange = this.handleStateChange.bind(this);
 		}
 
-		handleStateChange(newState) {
-			console.log('CounterComponent#stateChange', this, newState);
-			// TODO: update inner HTML based on the new state
+		handleStateChange(state) {
+			this.innerHTML = this.render();
 		}
 
 		connectedCallback() {
+			this.innerHTML = this.render();
 			this.store.subscribe(this.onStateChange);
 		}
 
 		disconnectedCallback() {
+			this.innerHTML = this.render();
 			this.store.unsubscribe(this.onStateChange);
+		}
+
+		render() {
+			return `<span class="resource header">
+            			<h3>Doge Coin</h3>
+            			<div id="counterCoin">${this.store.state.counter}</div>
+        			</span>
+        			<span>
+						<game-button></game-button>
+        			</span>`;
 		}
 	};
 };
@@ -842,41 +855,30 @@ exports.default = function (store) {
 		constructor() {
 			super();
 			this.store = store;
-
+			this.render();
 			// TODO: render generator initial view
 			this.onStateChange = this.handleStateChange.bind(this);
 			// TODO: subscribe to store on change event
 			// TODO: add click event
-			this.addEventListener('click', () => {
-				this.store.dispatch({
-					type: 'BUY_GENERATOR',
-					payload: {
-						name: this.store.state.generators[this.dataset.id].name,
-						count: this.store.state.generators[this.dataset.id].quantity
-					}
-				});
-			});
 		}
 
-		handleStateChange(state) {
-			console.log("Purchased a gen!");
+		handleStateChange() {
+			this.render();
 		}
 
 		connectedCallback() {
-			console.log("genOnCallback");
 			this.id = this.dataset.id;
-			this.innerHTML = this.render();
+			this.render();
 			this.store.subscribe(this.onStateChange);
 		}
 
 		disconnectedCallback() {
-			console.log("genonDisCalled");
-			this.innerHTML = this.render();
+			this.render();
 			this.store.unsubscribe(this.onStateChange);
 		}
 
 		render() {
-			return `<ul class="resource card">
+			this.innerHTML = `<ul class="resource card">
             <span class="resource btn">
                 <div class="resource header">${this.store.state.generators[this.dataset.id].name}</div>
                 <span class="resource header">
@@ -889,15 +891,77 @@ exports.default = function (store) {
                 ${this.store.state.generators[this.dataset.id].baseCost}
                 <button>Buy ${this.store.state.generators[this.dataset.id].name}</button>
             </span>
-        </ul>`;
+		</ul>`;
+
+			this.querySelector('button').addEventListener('click', () => {
+				this.store.dispatch({
+					type: 'BUY_GENERATOR',
+					payload: {
+						name: this.store.state.generators[this.dataset.id].name,
+						count: this.store.state.generators[this.dataset.id].quantity
+					}
+				});
+			});
 		}
 	};
 };
 
-var _generator = __webpack_require__(11);
+var _generator = __webpack_require__(13);
 
 /***/ }),
 /* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+exports.default = function (store) {
+	return class StoryBookComponent extends window.HTMLElement {
+		constructor() {
+			super();
+			this.store = store;
+
+			this.onStateChange = this.handleStateChange.bind(this);
+		}
+
+		handleStateChange(newState) {
+			// TODO: display story based on the state "resource" and "stories"
+		}
+
+		connectedCallback() {
+			this.store.subscribe(this.onStateChange);
+		}
+
+		disconnectedCallback() {
+			this.store.unsubscribe(this.onStateChange);
+		}
+	};
+};
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = {
+	growthRatio: 0.05,
+	actions: {
+		EXAMPLE: 'EXAMPLE_MUTATION',
+		BUY_GENERATOR: 'BUY_GENERATOR'
+	}
+};
+
+/***/ }),
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -954,58 +1018,6 @@ class Generator {
 	}
 }
 exports.default = Generator;
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-exports.default = {
-	growthRatio: 0.05,
-	actions: {
-		EXAMPLE: 'EXAMPLE_MUTATION',
-		BUY_GENERATOR: 'BUY_GENERATOR'
-	}
-};
-
-/***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-exports.default = function (store) {
-	return class StoryBookComponent extends window.HTMLElement {
-		constructor() {
-			super();
-			this.store = store;
-
-			this.onStateChange = this.handleStateChange.bind(this);
-		}
-
-		handleStateChange(newState) {
-			// TODO: display story based on the state "resource" and "stories"
-		}
-
-		connectedCallback() {
-			this.store.subscribe(this.onStateChange);
-		}
-
-		disconnectedCallback() {
-			this.store.unsubscribe(this.onStateChange);
-		}
-	};
-};
 
 /***/ })
 /******/ ]);
