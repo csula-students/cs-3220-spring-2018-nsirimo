@@ -21,6 +21,17 @@ export function loop(store) {
 		});
 	});
 
+	store.state.storys.forEach((story) => {
+		store.dispatch({
+			type:'CHECK_STORY',
+			payload: {
+				name: story.name,
+				description: story.description,
+				unlock: story.triggeredAt,
+				state: story.state
+			}
+		});
+	});
 	// TODO: triggers stories from story to display state if they are passed
 	//       the `triggeredAt` points
 	// hint: use store.dispatch to send event for changing events state

@@ -14,6 +14,10 @@ export default function reducer(state, action) {
 		case 'INCREMENT':
 			state.counter = state.counter + (action.payload.rate * action.payload.count);
 			return state;
+		case 'CHECK_STORY':
+			if(state.counter > action.payload.unlock){
+				return state;
+			}
 		default:
 			return state;
 	}

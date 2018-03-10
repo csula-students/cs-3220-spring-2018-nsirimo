@@ -134,7 +134,7 @@ function main() {
 			baseCost: 150,
 			unlockValue: 60
 		}],
-		story: [{
+		storys: [{
 			name: 'Doge Click',
 			description: 'snif snif snif Doge Click',
 			triggeredAt: 10,
@@ -628,6 +628,17 @@ function loop(store) {
 		});
 	});
 
+	store.state.storys.forEach(story => {
+		store.dispatch({
+			type: 'CHECK_STORY',
+			payload: {
+				name: story.name,
+				description: story.description,
+				unlock: story.triggeredAt,
+				state: story.state
+			}
+		});
+	});
 	// TODO: triggers stories from story to display state if they are passed
 	//       the `triggeredAt` points
 	// hint: use store.dispatch to send event for changing events state
@@ -734,6 +745,10 @@ function reducer(state, action) {
 		case 'INCREMENT':
 			state.counter = state.counter + action.payload.rate * action.payload.count;
 			return state;
+		case 'CHECK_STORY':
+			if (state.counter > action.payload.unlock) {
+				return state;
+			}
 		default:
 			return state;
 	}
@@ -882,10 +897,7 @@ exports.default = function (store) {
 			super();
 			this.store = store;
 			this.render();
-			// TODO: render generator initial view
 			this.onStateChange = this.handleStateChange.bind(this);
-			// TODO: subscribe to store on change event
-			// TODO: add click event
 		}
 
 		handleStateChange() {
@@ -1030,20 +1042,43 @@ exports.default = function (store) {
 		constructor() {
 			super();
 			this.store = store;
-
+			this.render();
 			this.onStateChange = this.handleStateChange.bind(this);
 		}
 
 		handleStateChange(newState) {
 			// TODO: display story based on the state "resource" and "stories"
+			// console.log('newState: ', newState.story);
+			this.store.state.storys.forEach(story => {
+				// story.isUnlockYet(this.store.state.counter)
+				if (this.store.state.counter > story.triggeredAt) {
+					this.addText(story.description);
+					this.disconnectedCallback();
+				}
+			});
+			this.render();
+		}
+
+		addText(text) {
+			console.log(text);
+			this.boxMessage += '\n' + text;
 		}
 
 		connectedCallback() {
+			this.render();
 			this.store.subscribe(this.onStateChange);
 		}
 
 		disconnectedCallback() {
+			this.render();
 			this.store.unsubscribe(this.onStateChange);
+		}
+
+		render() {
+			const boxMessage = "The Story Begins...";
+			this.innerHTML = `<div>
+			<textarea class="scrollabletextbox" readonly="true">${this.boxMessage}</textarea>
+		</div>`;
 		}
 	};
 };

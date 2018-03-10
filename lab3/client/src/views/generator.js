@@ -6,10 +6,7 @@ export default function (store) {
 			super();
 			this.store = store;
 			this.render();
-			// TODO: render generator initial view
 			this.onStateChange = this.handleStateChange.bind(this);
-			// TODO: subscribe to store on change event
-			// TODO: add click event
 		}
 
 		handleStateChange () {
