@@ -1,11 +1,11 @@
 // Store is heavily inspired by Redux from React pattern to handle state management
 export default class Store {
-    /**
-     * Create a new store with specific reducer and optionally initial state
-     * @constructor
-     * @param {function} reducer - the reducer to mutate state
-     * @param {initialState} object - the initial state
-     */
+	/**
+	 * Create a new store with specific reducer and optionally initial state
+	 * @constructor
+	 * @param {function} reducer - the reducer to mutate state
+	 * @param {initialState} object - the initial state
+	 */
 	constructor (reducer, initialState = {}) {
 		this.reducer = reducer;
 		// listeners are internal state to keep track of which reducers to call in this

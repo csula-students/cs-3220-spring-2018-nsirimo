@@ -20,6 +20,17 @@ class PubSub {
 
 const pubSub = new PubSub();
 
+function increaseCoins(state) {
+    state.counterCoin ++;
+
+    pubSub.subscribe(countNum => {
+        window.document.getElementById("counterCoin").innerHTML = state.counterCoin;
+    });
+
+    pubSub.publish(state);
+    window.document.getElementById("counterCoin").innerHTML = state.counterCoin;
+}
+
 function increaseDoge(state) {
     state.counterDoge ++;
 

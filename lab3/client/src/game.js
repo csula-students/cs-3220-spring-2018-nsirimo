@@ -1,3 +1,4 @@
+// default interval as 1 second
 const interval = 1000;
 
 /**
