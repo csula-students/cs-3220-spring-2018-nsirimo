@@ -1,3 +1,6 @@
+import Story from '../src/models/story';
+import constants from './constants';
+
 export default function reducer(state, action) {
 	switch (action.type) {
 		case 'BUY_GENERATOR':
@@ -12,15 +15,15 @@ export default function reducer(state, action) {
 			state.counter++;
 			return state;
 		case 'INCREMENT':
-			state.counter = state.counter + (action.payload.rate * action.payload.count);
+			state.counter = action.payload;
 			return state;
-		case 'CHECK_STORY':
+		case constants.actions.CHECK_STORY:
 			state.storys.forEach((story) => {
-				if (story.name == action.payload.name) {
-					story.state = 'visible';
+				let storyTemp = new Story(story);
+				if (storyTemp.isUnlockYet(state.counter)) {
+					story.state = "visible";
 				}
 			});
-			return state;
 		default:
 			return state;
 	}

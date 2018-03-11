@@ -17,16 +17,13 @@ export default class Story {
 	 * @return {boolean} if this story is unlockable
 	 */
 	isUnlockYet (value) {
-		if(this.triggeredAt < value){
-			return true;
-		}
-		return false;
+		return this.triggeredAt <= value;
 	}
 
 	/**
 	 * unlock simply unlock the story to visible state
 	 */
 	unlock () {
-		this.state = true;
+		this.state = 'visible';
 	}
 }

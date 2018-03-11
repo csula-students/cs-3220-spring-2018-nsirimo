@@ -12,7 +12,6 @@ export default function (store) {
 		}
 
 		addText(currentStory, addText) {
-			//console.log(text);
 			currentStory = currentStory + ('\n' + addText);
 			return currentStory;
 		}

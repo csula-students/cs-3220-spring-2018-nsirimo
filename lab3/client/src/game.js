@@ -1,3 +1,5 @@
+import constants from './constants';
+
 // default interval as 1 second
 const interval = 1000;
 
@@ -10,30 +12,19 @@ export function loop(store) {
 	// hint: read how many "generators" in store and iterate through them to
 	//       count how many value to increment to "resource"
 	// hint: remember to change event through `store.dispatch`
+	var count = 0;
 	store.state.generators.forEach((generator) => {
+		count = store.state.counter + (generator.rate * generator.quantity);
 		store.dispatch({
 			type: 'INCREMENT',
-			payload: {
-				name: generator,
-				count: generator.quantity,
-				rate: generator.rate
-			}
+			payload: count
 		});
 	});
 
-	store.state.storys.forEach((story) => {
-		if (story.triggeredAt < store.state.counter) {
-			store.dispatch({
-				type: 'CHECK_STORY',
-				payload: {
-					name: story.name,
-					description: story.description,
-					unlock: story.triggeredAt,
-					state: story.state
-				}
-			});
-		}
+	store.dispatch({
+		type: constants.actions.CHECK_STORY
 	});
+
 	// TODO: triggers stories from story to display state if they are passed
 	//       the `triggeredAt` points
 	// hint: use store.dispatch to send event for changing events state
