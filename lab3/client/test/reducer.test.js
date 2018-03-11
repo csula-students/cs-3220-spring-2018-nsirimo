@@ -38,7 +38,7 @@ test('should be able to increment counter based on modifier from "INCREMENT" act
 
 test('should be able to mutate story state on "CHECK_STORY" action', () => {
 	const action = {
-		type: constants.CHECK_STORY
+		type: constants.actions.CHECK_STORY
 	};
 	const initialState = {
 		counter: 11,

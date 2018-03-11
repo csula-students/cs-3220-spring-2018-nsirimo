@@ -44,7 +44,7 @@ function main() {
 				unlockValue: 60
 			}
 		],
-		storys: [
+		story: [
 			{
 				name:'Doge Click',
 				description: 'snif snif snif Doge Click',

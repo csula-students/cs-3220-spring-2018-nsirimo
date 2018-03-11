@@ -774,7 +774,7 @@ function reducer(state, action) {
 		case 'INCREMENT':
 			state.counter = action.payload;
 			return state;
-		case _constants2.default.actions.CHECK_STORY:
+		case 'CHECK_STORY':
 			state.storys.forEach(story => {
 				let storyTemp = new _story2.default(story);
 				if (storyTemp.isUnlockYet(state.counter)) {

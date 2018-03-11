@@ -17,11 +17,11 @@ export default function reducer(state, action) {
 		case 'INCREMENT':
 			state.counter = action.payload;
 			return state;
-		case constants.actions.CHECK_STORY:
-			state.storys.forEach((story) => {
-				let storyTemp = new Story(story);
+		case 'CHECK_STORY':
+			state.story.forEach((storys) => {
+				let storyTemp = new Story(storys);
 				if (storyTemp.isUnlockYet(state.counter)) {
-					story.state = "visible";
+					storys.state = "visible";
 				}
 			});
 		default:
