@@ -12,7 +12,7 @@ export function loop(store) {
 	// hint: remember to change event through `store.dispatch`
 	store.state.generators.forEach((generator) => {
 		store.dispatch({
-			type:'INCREMENT',
+			type: 'INCREMENT',
 			payload: {
 				name: generator,
 				count: generator.quantity,
@@ -22,15 +22,17 @@ export function loop(store) {
 	});
 
 	store.state.storys.forEach((story) => {
-		store.dispatch({
-			type:'CHECK_STORY',
-			payload: {
-				name: story.name,
-				description: story.description,
-				unlock: story.triggeredAt,
-				state: story.state
-			}
-		});
+		if (story.triggeredAt < store.state.counter) {
+			store.dispatch({
+				type: 'CHECK_STORY',
+				payload: {
+					name: story.name,
+					description: story.description,
+					unlock: story.triggeredAt,
+					state: story.state
+				}
+			});
+		}
 	});
 	// TODO: triggers stories from story to display state if they are passed
 	//       the `triggeredAt` points

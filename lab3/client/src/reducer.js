@@ -15,9 +15,12 @@ export default function reducer(state, action) {
 			state.counter = state.counter + (action.payload.rate * action.payload.count);
 			return state;
 		case 'CHECK_STORY':
-			if(state.counter > action.payload.unlock){
-				return state;
-			}
+			state.storys.forEach((story) => {
+				if (story.name == action.payload.name) {
+					story.state = 'visible';
+				}
+			});
+			return state;
 		default:
 			return state;
 	}

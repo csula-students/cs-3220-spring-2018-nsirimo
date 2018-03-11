@@ -8,21 +8,13 @@ export default function (store) {
 		}
 
 		handleStateChange (newState) {
-			// TODO: display story based on the state "resource" and "stories"
-			// console.log('newState: ', newState.story);
-			this.store.state.storys.forEach((story) => {
-				// story.isUnlockYet(this.store.state.counter)
-				if(this.store.state.counter > story.triggeredAt){
-					this.addText(story.description);
-					this.disconnectedCallback();
-				}
-			});
 			this.render();
 		}
 
-		addText(text) {
-			console.log(text);
-			this.boxMessage += ('\n' + text);
+		addText(currentStory, addText) {
+			//console.log(text);
+			currentStory = currentStory + ('\n' + addText);
+			return currentStory;
 		}
 
 		connectedCallback () {
@@ -36,9 +28,14 @@ export default function (store) {
 		}
 
 		render () {
-			const boxMessage = "The Story Begins...";
+			let boxMessage = 'The Story Begins...';
+			this.store.state.storys.forEach((story) => {
+				if(story.state == 'visible'){
+					boxMessage = this.addText(boxMessage, story.description);
+				}
+			});
 			this.innerHTML = `<div>
-			<textarea class="scrollabletextbox" readonly="true">${this.boxMessage}</textarea>
+			<textarea class="scrollabletextbox" readonly="true">${boxMessage}</textarea>
 		</div>`;
 		}
 	};

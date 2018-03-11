@@ -629,15 +629,17 @@ function loop(store) {
 	});
 
 	store.state.storys.forEach(story => {
-		store.dispatch({
-			type: 'CHECK_STORY',
-			payload: {
-				name: story.name,
-				description: story.description,
-				unlock: story.triggeredAt,
-				state: story.state
-			}
-		});
+		if (story.triggeredAt < store.state.counter) {
+			store.dispatch({
+				type: 'CHECK_STORY',
+				payload: {
+					name: story.name,
+					description: story.description,
+					unlock: story.triggeredAt,
+					state: story.state
+				}
+			});
+		}
 	});
 	// TODO: triggers stories from story to display state if they are passed
 	//       the `triggeredAt` points
@@ -746,9 +748,12 @@ function reducer(state, action) {
 			state.counter = state.counter + action.payload.rate * action.payload.count;
 			return state;
 		case 'CHECK_STORY':
-			if (state.counter > action.payload.unlock) {
-				return state;
-			}
+			state.storys.forEach(story => {
+				if (story.name == action.payload.name) {
+					story.state = 'visible';
+				}
+			});
+			return state;
 		default:
 			return state;
 	}
@@ -1047,21 +1052,13 @@ exports.default = function (store) {
 		}
 
 		handleStateChange(newState) {
-			// TODO: display story based on the state "resource" and "stories"
-			// console.log('newState: ', newState.story);
-			this.store.state.storys.forEach(story => {
-				// story.isUnlockYet(this.store.state.counter)
-				if (this.store.state.counter > story.triggeredAt) {
-					this.addText(story.description);
-					this.disconnectedCallback();
-				}
-			});
 			this.render();
 		}
 
-		addText(text) {
-			console.log(text);
-			this.boxMessage += '\n' + text;
+		addText(currentStory, addText) {
+			//console.log(text);
+			currentStory = currentStory + ('\n' + addText);
+			return currentStory;
 		}
 
 		connectedCallback() {
@@ -1075,9 +1072,14 @@ exports.default = function (store) {
 		}
 
 		render() {
-			const boxMessage = "The Story Begins...";
+			let boxMessage = 'The Story Begins...';
+			this.store.state.storys.forEach(story => {
+				if (story.state == 'visible') {
+					boxMessage = this.addText(boxMessage, story.description);
+				}
+			});
 			this.innerHTML = `<div>
-			<textarea class="scrollabletextbox" readonly="true">${this.boxMessage}</textarea>
+			<textarea class="scrollabletextbox" readonly="true">${boxMessage}</textarea>
 		</div>`;
 		}
 	};
