@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -70,35 +70,55 @@
 "use strict";
 
 
-__webpack_require__(1);
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.default = {
+	growthRatio: 0.05,
+	actions: {
+		EXAMPLE: 'EXAMPLE_MUTATION',
+		BUY_GENERATOR: 'BUY_GENERATOR',
+		INCREMENT: 'INCREMENT',
+		CHECK_STORY: 'CHECK_STORY'
+	}
+};
 
-var _game = __webpack_require__(4);
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
 
-var _store = __webpack_require__(5);
+"use strict";
+
+
+__webpack_require__(2);
+
+var _game = __webpack_require__(5);
+
+var _store = __webpack_require__(6);
 
 var _store2 = _interopRequireDefault(_store);
 
-var _reducer = __webpack_require__(6);
+var _reducer = __webpack_require__(7);
 
 var _reducer2 = _interopRequireDefault(_reducer);
 
-var _button = __webpack_require__(7);
+var _button = __webpack_require__(9);
 
 var _button2 = _interopRequireDefault(_button);
 
-var _counter = __webpack_require__(8);
+var _counter = __webpack_require__(10);
 
 var _counter2 = _interopRequireDefault(_counter);
 
-var _example = __webpack_require__(9);
+var _example = __webpack_require__(11);
 
 var _example2 = _interopRequireDefault(_example);
 
-var _generator = __webpack_require__(10);
+var _generator = __webpack_require__(12);
 
 var _generator2 = _interopRequireDefault(_generator);
 
-var _storyBook = __webpack_require__(11);
+var _storyBook = __webpack_require__(14);
 
 var _storyBook2 = _interopRequireDefault(_storyBook);
 
@@ -134,7 +154,22 @@ function main() {
 			baseCost: 150,
 			unlockValue: 60
 		}],
-		story: []
+		storys: [{
+			name: 'Doge Click',
+			description: 'snif snif snif Doge Click',
+			triggeredAt: 10,
+			state: 'hidden'
+		}, {
+			name: 'Bork Power',
+			description: 'Bork Bork *laughs in Dog*',
+			triggeredAt: 20,
+			state: 'hidden'
+		}, {
+			name: 'Woofer',
+			description: 'Woof woof motherfucker *dance in Dog*',
+			triggeredAt: 60,
+			state: 'hidden'
+		}]
 	};
 
 	// initialize store
@@ -159,7 +194,7 @@ function main() {
 }
 
 /***/ }),
-/* 1 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function(){/*
@@ -360,10 +395,10 @@ Eg.whenReady(function(){requestAnimationFrame(function(){window.WebComponents.re
 
 //# sourceMappingURL=webcomponents-lite.js.map
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(4)))
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports) {
 
 var g;
@@ -390,7 +425,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -580,7 +615,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -590,7 +625,13 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 exports.loop = loop;
-exports.increment = increment;
+
+var _constants = __webpack_require__(0);
+
+var _constants2 = _interopRequireDefault(_constants);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 // default interval as 1 second
 const interval = 1000;
 
@@ -602,19 +643,30 @@ function loop(store) {
 	// TODO: increment counter based on the generators in the state
 	// hint: read how many "generators" in store and iterate through them to
 	//       count how many value to increment to "resource"
+	// hint: remember to change event through `store.dispatch`
+	var count = 0;
+	store.state.generators.forEach(generator => {
+		count = store.state.counter + generator.rate * generator.quantity;
+		store.dispatch({
+			type: 'INCREMENT',
+			payload: count
+		});
+	});
 
+	store.dispatch({
+		type: _constants2.default.actions.CHECK_STORY
+	});
 
 	// TODO: triggers stories from story to display state if they are passed
 	//       the `triggeredAt` points
+	// hint: use store.dispatch to send event for changing events state
+
+	// recursively calls loop method every second
 	setTimeout(loop.bind(this, store), interval);
 }
 
-function increment(state, modifier = 1) {
-	return state.counter + 1 * modifier;
-}
-
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -685,7 +737,7 @@ function deepCopy(obj) {
 }
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -695,6 +747,17 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 exports.default = reducer;
+
+var _story = __webpack_require__(8);
+
+var _story2 = _interopRequireDefault(_story);
+
+var _constants = __webpack_require__(0);
+
+var _constants2 = _interopRequireDefault(_constants);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function reducer(state, action) {
 	switch (action.type) {
 		case 'BUY_GENERATOR':
@@ -708,13 +771,64 @@ function reducer(state, action) {
 		case 'BUTTON_CLICK':
 			state.counter++;
 			return state;
+		case 'INCREMENT':
+			state.counter = action.payload;
+			return state;
+		case 'CHECK_STORY':
+			state.storys.forEach(story => {
+				let storyTemp = new _story2.default(story);
+				if (storyTemp.isUnlockYet(state.counter)) {
+					story.state = "visible";
+				}
+			});
 		default:
 			return state;
 	}
 }
 
 /***/ }),
-/* 7 */
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+class Story {
+	/**
+  * create a new story based on the meta passed in argument
+  * @constructor
+  * @param {object} meta - the meta data for story
+  */
+	constructor(meta) {
+		this.name = meta.name;
+		this.description = meta.description;
+		this.triggeredAt = meta.triggeredAt;
+		this.state = meta.state;
+	}
+
+	/**
+  * isUnlockYet checks if this story is ready to be unlocked yet
+  * @param {number} value - the resource value at the moment
+  * @return {boolean} if this story is unlockable
+  */
+	isUnlockYet(value) {
+		return this.triggeredAt <= value;
+	}
+
+	/**
+  * unlock simply unlock the story to visible state
+  */
+	unlock() {
+		this.state = 'visible';
+	}
+}
+exports.default = Story;
+
+/***/ }),
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -746,7 +860,7 @@ exports.default = function (store) {
 };
 
 /***/ }),
-/* 8 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -792,7 +906,7 @@ exports.default = function (store) {
 };
 
 /***/ }),
-/* 9 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -840,7 +954,7 @@ exports.default = function (store) {
 };
 
 /***/ }),
-/* 10 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -856,10 +970,7 @@ exports.default = function (store) {
 			super();
 			this.store = store;
 			this.render();
-			// TODO: render generator initial view
 			this.onStateChange = this.handleStateChange.bind(this);
-			// TODO: subscribe to store on change event
-			// TODO: add click event
 		}
 
 		handleStateChange() {
@@ -909,58 +1020,6 @@ exports.default = function (store) {
 var _generator = __webpack_require__(13);
 
 /***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-exports.default = function (store) {
-	return class StoryBookComponent extends window.HTMLElement {
-		constructor() {
-			super();
-			this.store = store;
-
-			this.onStateChange = this.handleStateChange.bind(this);
-		}
-
-		handleStateChange(newState) {
-			// TODO: display story based on the state "resource" and "stories"
-		}
-
-		connectedCallback() {
-			this.store.subscribe(this.onStateChange);
-		}
-
-		disconnectedCallback() {
-			this.store.unsubscribe(this.onStateChange);
-		}
-	};
-};
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-exports.default = {
-	growthRatio: 0.05,
-	actions: {
-		EXAMPLE: 'EXAMPLE_MUTATION',
-		BUY_GENERATOR: 'BUY_GENERATOR'
-	}
-};
-
-/***/ }),
 /* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -971,7 +1030,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _constants = __webpack_require__(12);
+var _constants = __webpack_require__(0);
 
 var _constants2 = _interopRequireDefault(_constants);
 
@@ -1004,7 +1063,8 @@ class Generator {
   * @return {number} the cost of buying another generator
   */
 	getCost() {
-		return Math.round(this.baseCost * Math.pow(1 + _constants2.default.growthRatio, this.quantity)) / 100;
+		const result = this.baseCost * Math.pow(1 + _constants2.default.growthRatio, this.quantity);
+		return result % 1 != 0 ? parseFloat(result.toFixed(2)) : parseInt(result);
 	}
 
 	/**
@@ -1018,6 +1078,59 @@ class Generator {
 	}
 }
 exports.default = Generator;
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+exports.default = function (store) {
+	return class StoryBookComponent extends window.HTMLElement {
+		constructor() {
+			super();
+			this.store = store;
+			this.render();
+			this.onStateChange = this.handleStateChange.bind(this);
+		}
+
+		handleStateChange(newState) {
+			this.render();
+		}
+
+		addText(currentStory, addText) {
+			currentStory = currentStory + ('\n' + addText);
+			return currentStory;
+		}
+
+		connectedCallback() {
+			this.render();
+			this.store.subscribe(this.onStateChange);
+		}
+
+		disconnectedCallback() {
+			this.render();
+			this.store.unsubscribe(this.onStateChange);
+		}
+
+		render() {
+			let boxMessage = 'The Story Begins...';
+			this.store.state.storys.forEach(story => {
+				if (story.state == 'visible') {
+					boxMessage = this.addText(boxMessage, story.description);
+				}
+			});
+			this.innerHTML = `<div>
+			<textarea class="scrollabletextbox" readonly="true">${boxMessage}</textarea>
+		</div>`;
+		}
+	};
+};
 
 /***/ })
 /******/ ]);

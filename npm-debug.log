@@ -27,7 +27,7 @@
 15 verbose stack     at maybeClose (internal/child_process.js:877:16)
 15 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:226:5)
 16 verbose pkgid nsirimongkol@1.0.0
-17 verbose cwd C:\Users\nsirimongkol\Documents\CS3220\cs-3220-spring-2018-nsirimo\lab3
+17 verbose cwd C:\Users\nsirimongkol\Documents\CS3220\cs-3220-spring-2018-nsirimo
 18 error Windows_NT 6.1.7601
 19 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "run" "test"
 20 error node v6.9.5

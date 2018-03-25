@@ -6,3 +6,10 @@ export const generator = {
     baseCost: 25,
     unlockValue: 10
 };
+
+export const story = {
+    name: 'Grandma shows up',
+    description: 'desc',
+    triggeredAt: 10,
+    state: 'hidden'
+};

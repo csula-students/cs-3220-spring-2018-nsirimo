@@ -44,7 +44,26 @@ function main() {
 				unlockValue: 60
 			}
 		],
-		story: []
+		story: [
+			{
+				name:'Doge Click',
+				description: 'snif snif snif Doge Click',
+				triggeredAt: 10,
+				state: 'hidden'
+			},
+			{
+				name: 'Bork Power',
+				description: 'Bork Bork *laughs in Dog*',
+				triggeredAt: 20,
+				state: 'hidden'
+			},
+			{
+				name: 'Woofer',
+				description: 'Woof woof motherfucker *dance in Dog*',
+				triggeredAt: 60,
+				state: 'hidden'
+			}
+		]
 	};
 
 	// initialize store
