@@ -42,7 +42,6 @@ public class EventsDAOImpl implements EventsDAO {
 
 	@Override
 	public List<Event> getAll() {
-		// TODO: read a list of events from context
 		Object data = context.getAttribute(CONTEXT_NAME);
 		if (data == null) {
 			return new ArrayList<>();
@@ -56,9 +55,9 @@ public class EventsDAOImpl implements EventsDAO {
 		Optional<Event> actualEvent = Optional.empty();
 		List<Event> dataList = (List<Event>) context.getAttribute(CONTEXT_NAME);
 
-		for(int i = 0; i < dataList.size(); i++){
-			if ( dataList.get(i).getId() == id) {
-				 actualEvent = Optional.of(dataList.get(i));
+		for (int i = 0; i < dataList.size(); i++) {
+			if (dataList.get(i).getId() == id) {
+				actualEvent = Optional.of(dataList.get(i));
 			}
 		}
 
@@ -71,8 +70,11 @@ public class EventsDAOImpl implements EventsDAO {
 	}
 
 	@Override
-	public void add(Event event) {
-		this.eventList.add(event);
+	public void add(Event eventIn) {
+		List<Event> tempList = getAll();
+		tempList.add(eventIn);
+
+		context.setAttribute(CONTEXT_NAME, tempList);
 	}
 
 	@Override
