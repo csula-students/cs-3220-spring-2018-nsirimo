@@ -1,10 +1,10 @@
 package edu.csula.models;
 
 public class Event {
-	private final int id;
-	private final String name;
-	private final String description;
-	private final int triggerAt;
+	private int id;
+	private String name;
+	private String description;
+	private int triggerAt;
 
 	public Event(int id, String name, String description, int triggerAt) {
 		this.id = id;
@@ -16,17 +16,29 @@ public class Event {
 	public int getId() {
 		return id;
 	}
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public String getName() {
 		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getDescription() {
 		return description;
 	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
 	public int getTriggerAt() {
 		return triggerAt;
+	}
+	public void setTriggerAt(int triggerAt) {
+		this.triggerAt = triggerAt;
 	}
 
 	@Override

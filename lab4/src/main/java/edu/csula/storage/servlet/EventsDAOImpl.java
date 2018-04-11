@@ -1,8 +1,9 @@
 package edu.csula.storage.servlet;
 
-import java.util.Collection;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.Collection;
 
 import javax.servlet.ServletContext;
 
@@ -32,22 +33,36 @@ import edu.csula.models.Event;
 public class EventsDAOImpl implements EventsDAO {
 	private final ServletContext context;
 	protected static final String CONTEXT_NAME = "events";
+	private List<Event> eventList;
 
 	public EventsDAOImpl(ServletContext context) {
 		this.context = context;
+		this.eventList = new ArrayList<Event>();
 	}
 
 	@Override
-	public Collection<Event> getAll() {
+	public List<Event> getAll() {
 		// TODO: read a list of events from context
-		return new ArrayList<>();
+		Object data = context.getAttribute(CONTEXT_NAME);
+		if (data == null) {
+			return new ArrayList<>();
+		} else {
+			return (List<Event>) data;
+		}
 	}
 
 	@Override
 	public Optional<Event> getById(int id) {
-		// TODO: get a certain event given its id from context (see getAll() on
-		// getting a list first and get a certain one from the list)
-		return Optional.empty();
+		Optional<Event> actualEvent = Optional.empty();
+		List<Event> dataList = (List<Event>) context.getAttribute(CONTEXT_NAME);
+
+		for(int i = 0; i < dataList.size(); i++){
+			if ( dataList.get(i).getId() == id) {
+				 actualEvent = Optional.of(dataList.get(i));
+			}
+		}
+
+		return actualEvent;
 	}
 
 	@Override
@@ -57,6 +72,11 @@ public class EventsDAOImpl implements EventsDAO {
 
 	@Override
 	public void add(Event event) {
-		// TODO: add a new event to the context
+		this.eventList.add(event);
+	}
+
+	@Override
+	public void remove(int id) {
+		// TODO: remove a single event given id
 	}
 }
