@@ -66,7 +66,17 @@ public class EventsDAOImpl implements EventsDAO {
 
 	@Override
 	public void set(int id, Event event) {
-		// TODO: set a certain event given id to be different from context
+		List<Event> tempList = getAll();
+		for (int i = 0; i < tempList.size(); i++) {
+			if (tempList.get(i).getId() == id) {
+				tempList.get(i).setName(event.getName());
+				tempList.get(i).setDescription(event.getDescription());
+				tempList.get(i).setTriggerAt(event.getTriggerAt());
+			}
+		}
+		
+
+		context.setAttribute(CONTEXT_NAME, tempList);
 	}
 
 	@Override
