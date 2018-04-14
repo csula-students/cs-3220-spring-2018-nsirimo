@@ -16,6 +16,7 @@ import edu.csula.models.Event;
 
 @WebServlet("/admin/events")
 public class AdminEventsServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
 	private static final String ADD = "add";
 	private static final String DELETE = "delete";
 
@@ -57,7 +58,7 @@ public class AdminEventsServlet extends HttpServlet {
 		out.println(
 				"							<input type=\"number\" id=\"trigger\" name=\"trigger\" value=\"\" required>");
 		out.println(
-				"							<input type=\"submit\" name=\"status\" value=\"add\">{Add|Edit}</input>");
+				"							<input type=\"submit\" name=\"status\" value=\"add\"></input>");
 		out.println("					</form>");
 		out.println("				</div>");
 		out.println("				<table>");
@@ -73,7 +74,8 @@ public class AdminEventsServlet extends HttpServlet {
 			out.println("						<td>" + event.getDescription() + "</td>");
 			out.println("						<td>" + event.getTriggerAt() + "</td>");
 			out.println(
-					"						<td> <input type=\"submit\" name=\"status\" value=\"delete\"></input> <button> Edit </button>");
+					"						<td> <a href='../admin/events/delete?id=" + event.getId() +
+												 "'>Delete</a> <a role=\"button\" href='../admin/events/edit?id=" + event.getId() + "'>Edit</a>");
 			out.println("						</tr>");
 			out.println("					</form>");
 		}
@@ -87,20 +89,16 @@ public class AdminEventsServlet extends HttpServlet {
 
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO: handle upsert transaction
-
-		System.out.println("this: " + request.getParameter("status"));
 		String action = request.getParameter("status");
 		if (ADD.equals(action)) {
 			add(request, response);
-		} else if (DELETE.equals(action)) {
-			delete(request, response);
 		}
 	}
 
 	private void add(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("add");
 		EventsDAO dao = new EventsDAOImpl(getServletContext());
+		System.out.println("size: " + dao.getAll().size());
 		Collection<Event> events = dao.getAll();
 		String event_name = request.getParameter("event_name");
 		String description = request.getParameter("description");
@@ -108,15 +106,6 @@ public class AdminEventsServlet extends HttpServlet {
 
 		Event event = new Event(events.size(), event_name, description, trigger);
 		dao.add(event);
-
-		response.sendRedirect("/admin/events");
-	}
-
-	private void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Delete");
-		EventsDAO dao = new EventsDAOImpl(getServletContext());
-		Collection<Event> events = dao.getAll();
-		dao.remove(0);
 
 		response.sendRedirect("/admin/events");
 	}
