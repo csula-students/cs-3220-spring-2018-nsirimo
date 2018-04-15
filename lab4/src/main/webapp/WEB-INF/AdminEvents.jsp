@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <html>
 
     <head>
@@ -46,6 +47,7 @@
                     <td>${event.getName()}</td>
                     <td>${event.getDescription()}</td>
                     <td>${event.getTriggerAt()}</td>
+                    <td> <a href="../admin/events/delete?id=${event.getId()}">Delete</a></td>
                 </tr>
             </form>
             </c:forEach>

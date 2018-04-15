@@ -23,7 +23,7 @@ public class AdminEventsServlet extends HttpServlet {
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("");
+		System.out.println("doGet Called");
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		// TODO: render the events page HTML
