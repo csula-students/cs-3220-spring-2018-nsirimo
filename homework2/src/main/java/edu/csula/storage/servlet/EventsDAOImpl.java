@@ -33,11 +33,9 @@ import edu.csula.models.Event;
 public class EventsDAOImpl implements EventsDAO {
 	private final ServletContext context;
 	protected static final String CONTEXT_NAME = "events";
-	private List<Event> eventList;
 
 	public EventsDAOImpl(ServletContext context) {
 		this.context = context;
-		this.eventList = new ArrayList<Event>();
 	}
 
 	@Override

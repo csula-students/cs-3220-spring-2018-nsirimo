@@ -1,0 +1,22 @@
+{
+    "run": [
+        {
+            "name": "cookie-clicker",
+            "projectName": "cookie-clicker",
+            "workingDirectory": "/Users/nicolassirimongkol/Documents/Software/cs-3220-spring-2018-nsirimo/homework2",
+            "args": [],
+            "vmargs": [],
+            "preLaunchTask": ""
+        }
+    ],
+    "debug": [
+        {
+            "name": "cookie-clicker",
+            "projectName": "cookie-clicker",
+            "workingDirectory": "/Users/nicolassirimongkol/Documents/Software/cs-3220-spring-2018-nsirimo/homework2",
+            "args": [],
+            "vmargs": [],
+            "preLaunchTask": ""
+        }
+    ]
+}
