@@ -74,7 +74,6 @@ public class EventsDAOImpl implements EventsDAO {
 				tempList.get(i).setTriggerAt(event.getTriggerAt());
 			}
 		}
-		
 
 		context.setAttribute(CONTEXT_NAME, tempList);
 	}
@@ -95,7 +94,6 @@ public class EventsDAOImpl implements EventsDAO {
 				tempList.remove(i);
 			}
 		}
-		
 
 		context.setAttribute(CONTEXT_NAME, tempList);
 	}
