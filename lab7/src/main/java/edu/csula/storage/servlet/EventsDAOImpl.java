@@ -3,6 +3,7 @@ package edu.csula.storage.servlet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Collection;
 
 import javax.servlet.ServletContext;
 
@@ -39,29 +40,59 @@ public class EventsDAOImpl implements EventsDAO {
 
 	@Override
 	public List<Event> getAll() {
-		// TODO: read a list of events from context
-		return new ArrayList<>();
+		Object data = context.getAttribute(CONTEXT_NAME);
+		if (data == null) {
+			return new ArrayList<>();
+		} else {
+			return (List<Event>) data;
+		}
 	}
 
 	@Override
 	public Optional<Event> getById(int id) {
-		// TODO: get a certain event given its id from context (see getAll() on
-		// getting a list first and get a certain one from the list)
-		return Optional.empty();
+		Optional<Event> actualEvent = Optional.empty();
+		List<Event> dataList = (List<Event>) context.getAttribute(CONTEXT_NAME);
+
+		for (int i = 0; i < dataList.size(); i++) {
+			if (dataList.get(i).getId() == id) {
+				actualEvent = Optional.of(dataList.get(i));
+			}
+		}
+
+		return actualEvent;
 	}
 
 	@Override
 	public void set(int id, Event event) {
-		// TODO: set a certain event given id to be different from context
+		List<Event> tempList = getAll();
+		for (int i = 0; i < tempList.size(); i++) {
+			if (tempList.get(i).getId() == id) {
+				tempList.get(i).setName(event.getName());
+				tempList.get(i).setDescription(event.getDescription());
+				tempList.get(i).setTriggerAt(event.getTriggerAt());
+			}
+		}
+
+		context.setAttribute(CONTEXT_NAME, tempList);
 	}
 
 	@Override
-	public void add(Event event) {
-		// TODO: add a new event to the context
+	public void add(Event eventIn) {
+		List<Event> tempList = getAll();
+		tempList.add(eventIn);
+
+		context.setAttribute(CONTEXT_NAME, tempList);
 	}
 
 	@Override
 	public void remove(int id) {
-		// TODO: remove a single event given id
+		List<Event> tempList = getAll();
+		for (int i = 0; i < tempList.size(); i++) {
+			if (tempList.get(i).getId() == id) {
+				tempList.remove(i);
+			}
+		}
+
+		context.setAttribute(CONTEXT_NAME, tempList);
 	}
 }
