@@ -1,7 +1,7 @@
 package edu.csula.storage.servlet;
 
+import java.util.Collection;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
@@ -22,33 +22,19 @@ public class UsersDAOImpl implements UsersDAO {
 
 	@Override
 	public boolean authenticate(String username, String password) {
-		Object data = context.getAttribute(CONTEXT_NAME);
-		List<User> tempList;
-		if (data == null) {
-			tempList = new ArrayList<>();
-		} else {
-			tempList = (List<User>) data;
-		}
-		if (username == "admin" && password == "cs3220password") {
-			User tempUser = new User(0, username, password);
-			context.setAttribute(CONTEXT_NAME, tempUser);
-			return true;
-		} else {
-			return false;
-		}
+		// TODO: check if username/password combination is valid and store the
+		//       username/password into the session
+		return false;
 	}
 
 	@Override
 	public Optional<User> getAuthenticatedUser() {
-		User tempUser = (User) context.getAttribute(CONTEXT_NAME);
-		if (tempUser == null) {
-			return Optional.empty();
-		}
-		return Optional.of(tempUser);
+		// TODO: return the authenticated user if there is any
+		return Optional.empty();
 	}
 
 	@Override
 	public void logout() {
-		context.invalidate();
+		// TOOD: log user out using `invalidate`
 	}
 }

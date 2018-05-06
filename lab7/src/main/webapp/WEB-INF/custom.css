@@ -1,0 +1,59 @@
+.pageTitle {
+    padding: 1em;
+}
+
+.navTitle {
+    font-weight: bold;
+}
+
+.navBar {
+    display: flex;
+    float: initial;
+    padding: 2em;
+    margin: 1em;
+    background: lightgoldenrodyellow;
+}
+
+.genForm {
+    padding: 1em;
+    width: 20%;
+    margin-left: 5em;
+    margin-right: 5em;
+}
+
+.genTable {
+    width: 80%;
+    height: auto;
+    padding: 2em;
+}
+
+a { 
+    padding: 1em;
+    text-align: start;
+    height: .1em;
+    border-left: thin solid black;
+    border-right: thin solid black;
+    width: auto;
+    margin: 0 auto;
+}
+
+th {
+    padding: 1em 5em 1em 1em;
+    height: 1em;
+}
+
+tr:nth-child(odd) {
+    background-color: #eee;
+}
+
+tr {
+	height: 4em;
+}
+
+.container {
+        display: flex;
+        align-items: baseline;
+        width: 100%;
+        height: auto;
+}
+

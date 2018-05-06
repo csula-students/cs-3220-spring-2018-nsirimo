@@ -2,7 +2,6 @@ package edu.csula.storage.servlet;
 
 import java.util.Collection;
 import java.util.List;
-import java.lang.reflect.GenericArrayType;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -41,61 +40,28 @@ public class GeneratorsDAOImpl implements GeneratorsDAO {
 
 	@Override
 	public List<Generator> getAll() {
-		Object data = context.getAttribute(CONTEXT_NAME);
-		if (data == null) {
-			return new ArrayList<>();
-		} else {
-			return (List<Generator>) data;
-		}
+		// TODO: get a list of generators from the context
+		return new ArrayList<>();
 	}
 
 	@Override
 	public Optional<Generator> getById(int id) {
-		Optional<Generator> actualGen = Optional.empty();
-		List<Generator> dataList = (List<Generator>) context.getAttribute(CONTEXT_NAME);
-
-		for (int i = 0; i < dataList.size(); i++) {
-			if (dataList.get(i).getId() == id) {
-				actualGen = Optional.of(dataList.get(i));
-			}
-		}
-
-		return actualGen;
+		// TODO: get a certain generator from context
+		return Optional.empty();
 	}
 
 	@Override
 	public void set(int id, Generator generator) {
-		List<Generator> tempList = getAll();
-		for (int i = 0; i < tempList.size(); i++) {
-			if (tempList.get(i).getId() == id) {
-				tempList.get(i).setName(generator.getName());
-				tempList.get(i).setDescription(generator.getDescription());
-				tempList.get(i).setRate(generator.getRate());
-				tempList.get(i).setBaseCost(generator.getBaseCost());
-				tempList.get(i).setUnlockAt(generator.getUnlockAt());
-			}
-		}
-
-		context.setAttribute(CONTEXT_NAME, tempList);
+		// TODO: change a certain generator from context
 	}
 
 	@Override
 	public void add(Generator generator) {
-		List<Generator> tempList = getAll();
-		tempList.add(generator);
-
-		context.setAttribute(CONTEXT_NAME, tempList);
+		// TODO: add a new generator to the context
 	}
 
 	@Override
 	public void remove(int id) {
-		List<Generator> tempList = getAll();
-		for (int i = 0; i < tempList.size(); i++) {
-			if (tempList.get(i).getId() == id) {
-				tempList.remove(i);
-			}
-		}
-
-		context.setAttribute(CONTEXT_NAME, tempList);
+		// TODO: remove a single generator from the context
 	}
 }
