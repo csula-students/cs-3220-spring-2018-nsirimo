@@ -16,9 +16,11 @@ public class EventsDAOImpl implements EventsDAO {
 	// TODO: fill the Strings with the SQL queries as "prepated statements" and
 	// use these queries variable accordingly in the method below
 	protected static final String getAllQuery = "SELECT * FROM events;";
-	protected static final String getByIdQuery = "SELECT * FROM events WHERE id = ";
-	protected static final String setQuery = "";
-	protected static final String addQuery = "";
+	protected static final String getByIdQuery = "SELECT * FROM event " + "WHERE id = ?";
+	protected static final String setQuery = "UPDATE event SET name = ?, description = ?, trigger_at = ?"
+			+ " WHERE id = ?;";
+	protected static final String addQuery = "INSERT INTO event" + 
+	" VALUES (?, ?, ?, ?, ?);";
 	protected static final String removeQuery = "";
 
 	public EventsDAOImpl(Database context) {
@@ -44,32 +46,46 @@ public class EventsDAOImpl implements EventsDAO {
 	@Override
 	public Optional<Event> getById(int id) {
 		try (Connection c = context.getConnection(); Statement stmt = c.createStatement()) {
-
-			PreparedStatement ps = c.prepareStatement("SELECT * FROM event " + "WHERE id = ?");
-			ps.setInt(id, comment);
-			ps.execute();
-
-			ResultSet rs = ps.getResultSet();
-
+			Optional<Event> actualEvent = Optional.empty();
+			PreparedStatement ps = c.prepareStatement(getByIdQuery);
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
 			Event entry = new Event(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4));
-			return entry;
+			actualEvent = Optional.of(entry);
+			return actualEvent;
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return new Optional.empty();
+			return Optional.empty();
 		}
-		// TODO: get specific event by id
-		return Optional.empty();
 	}
 
 	@Override
 	public void set(int id, Event event) {
-		// TODO: update specific event by id
+		try (Connection c = context.getConnection(); Statement stmt = c.createStatement()) {
+			PreparedStatement ps = c.prepareStatement(setQuery);
+			ps.setString(1, event.getName());
+			ps.setString(2, event.getDescription());
+			ps.setInt(3, event.getTriggerAt());
+			ps.setInt(4, id);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void add(Event event) {
-		// TODO: implement jdbc logic to add a new event
+		try (Connection c = context.getConnection(); Statement stmt = c.createStatement()) {
+			PreparedStatement ps = c.prepareStatement(addQuery);
+			ps.setInt(1, event.getId());
+			ps.setString(2, event.getName());
+			ps.setString(3, event.getDescription());
+			ps.setInt(4, event.getTriggerAt());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
