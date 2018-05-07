@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.RequestDispatcher;
 
-import edu.csula.storage.servlet.EventsDAOImpl;
+import edu.csula.storage.mysql.EventsDAOImpl;
 import edu.csula.storage.EventsDAO;
 import edu.csula.models.Event;
 

@@ -16,10 +16,10 @@ public class EventsDAOImpl implements EventsDAO {
 	// TODO: fill the Strings with the SQL queries as "prepated statements" and
 	// use these queries variable accordingly in the method below
 	protected static final String getAllQuery = "SELECT * FROM events;";
-	protected static final String getByIdQuery = "SELECT * FROM event " + "WHERE id = ?";
-	protected static final String setQuery = "UPDATE event SET name = ?, description = ?, trigger_at = ?"
+	protected static final String getByIdQuery = "SELECT * FROM events " + "WHERE id = ?";
+	protected static final String setQuery = "UPDATE events SET name = ?, description = ?, trigger_at = ?"
 			+ " WHERE id = ?;";
-	protected static final String addQuery = "INSERT INTO event" + 
+	protected static final String addQuery = "INSERT INTO events" + 
 	" VALUES (?, ?, ?, ?, ?);";
 	protected static final String removeQuery = "";
 
