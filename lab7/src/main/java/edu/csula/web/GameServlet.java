@@ -50,15 +50,14 @@ public class GameServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
         GsonBuilder builder = new GsonBuilder();
-        Collection<Generator> gen = new GeneratorsDAOImpl(getServletContext()).getAll();
-        Collection<Event> events = new EventsDAOImpl(getServletContext()).getAll();
+        Collection<Generator> generators = genDao.getAll();
+        Collection<Event> events = eventsDao.getAll();
 
         Gson gson = builder.create();
         String convertedState = gson.toJson(new State(generators, events));
 
-        request.setAttribute("lastGen", gen.size() - 1);
+        request.setAttribute("lastGen", generators.size() - 1);
         request.setAttribute("state", convertedState);
         request.getRequestDispatcher("./WEB-INF/game.jsp").forward(request, response);
-
     }
 }
