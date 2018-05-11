@@ -41,8 +41,8 @@ public class GameServlet extends HttpServlet {
         if (genDao.getAll().size() == 0) {
             GeneratorsDAO dao = new GeneratorsDAOImpl(getServletContext());
             genDao.add(new Generator(0, "Doge Click", "The power of doge is in every click!", 5, 10, 10));
-            genDao.add(new Generator(1, "Bork Power", "*laughs in Doge* BORK BORK BORK!!!", 10, 100, 100));
-            genDao.add(new Generator(2, "Woofer", "The subwoofers are breaking! Off the chain bruh!", 20, 500, 500));
+            genDao.add(new Generator(1, "Bork Power", "*laughs in Doge* BORK BORK BORK!!!", 10, 20, 20));
+            genDao.add(new Generator(2, "Woofer", "The subwoofers are breaking! Off the chain bruh!", 20, 60, 60));
         }
     }
 
