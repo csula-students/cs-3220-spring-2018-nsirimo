@@ -37,13 +37,28 @@ public class GameServlet extends HttpServlet {
                     "Woof so strong the coins just flow out!", 60));
         }
 
-        GeneratorsDAO generatorDao = new GeneratorsDAOImpl(getServletContext());
-        if (generatorDao.getAll().size() == 0) {
+        GeneratorsDAO genDao = new GeneratorsDAOImpl(getServletContext());
+        if (genDao.getAll().size() == 0) {
             GeneratorsDAO dao = new GeneratorsDAOImpl(getServletContext());
-            generatorDao.add(new Generator(0, "Doge Click", "The power of doge is in every click!", 5, 10, 10));
-            generatorDao.add(new Generator(1, "Bork Power", "*laughs in Doge* BORK BORK BORK!!!", 10, 100, 100));
-            generatorDao
-                    .add(new Generator(2, "Woofer", "The subwoofers are breaking! Off the chain bruh!", 20, 500, 500));
+            genDao.add(new Generator(0, "Doge Click", "The power of doge is in every click!", 5, 10, 10));
+            genDao.add(new Generator(1, "Bork Power", "*laughs in Doge* BORK BORK BORK!!!", 10, 100, 100));
+            genDao.add(new Generator(2, "Woofer", "The subwoofers are breaking! Off the chain bruh!", 20, 500, 500));
         }
+    }
+
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html");
+        GsonBuilder builder = new GsonBuilder();
+        Collection<Generator> gen = new GeneratorsDAOImpl(getServletContext()).getAll();
+        Collection<Event> events = new EventsDAOImpl(getServletContext()).getAll();
+
+        Gson gson = builder.create();
+        String convertedState = gson.toJson(new State(generators, events));
+
+        request.setAttribute("lastGen", gen.size() - 1);
+        request.setAttribute("state", convertedState);
+        request.getRequestDispatcher("./WEB-INF/game.jsp").forward(request, response);
+
     }
 }
