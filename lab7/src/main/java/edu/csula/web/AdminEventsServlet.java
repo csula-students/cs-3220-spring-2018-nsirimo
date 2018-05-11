@@ -26,7 +26,6 @@ public class AdminEventsServlet extends HttpServlet {
 		System.out.println("doGet Called");
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-		// TODO: render the events page HTML
 		EventsDAO dao = new EventsDAOImpl(getServletContext());
 		Collection<Event> events = dao.getAll();
 		request.setAttribute("data", events);

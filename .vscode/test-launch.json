@@ -1,0 +1,22 @@
+{
+    "run": [
+        {
+            "name": "java-tomcat-gradle-starter",
+            "projectName": "java-tomcat-gradle-starter",
+            "workingDirectory": "/Users/nicolassirimongkol/Documents/Software/cs-3220-spring-2018-nsirimo",
+            "args": [],
+            "vmargs": [],
+            "preLaunchTask": ""
+        }
+    ],
+    "debug": [
+        {
+            "name": "java-tomcat-gradle-starter",
+            "projectName": "java-tomcat-gradle-starter",
+            "workingDirectory": "/Users/nicolassirimongkol/Documents/Software/cs-3220-spring-2018-nsirimo",
+            "args": [],
+            "vmargs": [],
+            "preLaunchTask": ""
+        }
+    ]
+}
