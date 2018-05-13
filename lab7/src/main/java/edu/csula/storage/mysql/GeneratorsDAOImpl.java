@@ -29,7 +29,6 @@ public class GeneratorsDAOImpl implements GeneratorsDAO {
 
     @Override
     public List<Generator> getAll() {
-        // TODO: get all generators from jdbc
         List<Generator> result = new ArrayList<>();
         try (Connection c = context.getConnection(); Statement statem = c.createStatement()) {
             ResultSet rs = statem.executeQuery(getAllQuery);
@@ -47,16 +46,12 @@ public class GeneratorsDAOImpl implements GeneratorsDAO {
 
     @Override
     public Optional<Generator> getById(int id) {
-        // TODO: get specific generator by id
         try (Connection c = context.getConnection();) {
             PreparedStatement ps = c.prepareStatement(getByIdQuery);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             return Optional.of(new Generator(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5),
                     rs.getInt(6)));
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return Optional.empty();
         } catch (Exception e) {
             e.printStackTrace();
             return Optional.empty();
@@ -74,8 +69,6 @@ public class GeneratorsDAOImpl implements GeneratorsDAO {
             ps.setInt(5, generator.getUnlockAt());
             ps.setInt(6, id);
             ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -92,8 +85,6 @@ public class GeneratorsDAOImpl implements GeneratorsDAO {
             ps.setInt(5, generator.getBaseCost());
             ps.setInt(6, generator.getUnlockAt());
             ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -105,8 +96,6 @@ public class GeneratorsDAOImpl implements GeneratorsDAO {
             PreparedStatement ps = c.prepareStatement(removeQuery);
             ps.setInt(1, id);
             ps.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }

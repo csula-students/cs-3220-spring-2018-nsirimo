@@ -15,6 +15,9 @@ import edu.csula.storage.mysql.EventsDAOImpl;
 import edu.csula.storage.EventsDAO;
 import edu.csula.models.Event;
 
+import edu.csula.storage.mysql.Database;
+
+
 @WebServlet("/admin/events")
 public class AdminEventsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -26,7 +29,7 @@ public class AdminEventsServlet extends HttpServlet {
 		System.out.println("doGet Called");
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-		EventsDAO dao = new EventsDAOImpl(getServletContext());
+		EventsDAO dao = new EventsDAOImpl(new Database());
 		Collection<Event> events = dao.getAll();
 		request.setAttribute("data", events);
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/AdminEvents.jsp");
@@ -43,8 +46,7 @@ public class AdminEventsServlet extends HttpServlet {
 
 	private void add(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("add");
-		EventsDAO dao = new EventsDAOImpl(getServletContext());
-		System.out.println("size: " + dao.getAll().size());
+		EventsDAO dao = new EventsDAOImpl(new Database());
 		Collection<Event> events = dao.getAll();
 		String event_name = request.getParameter("event_name");
 		String description = request.getParameter("description");

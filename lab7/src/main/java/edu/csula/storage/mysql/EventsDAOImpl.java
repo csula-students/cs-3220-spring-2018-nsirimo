@@ -13,15 +13,12 @@ import edu.csula.models.Event;
 public class EventsDAOImpl implements EventsDAO {
 	private final Database context;
 
-	// TODO: fill the Strings with the SQL queries as "prepated statements" and
-	// use these queries variable accordingly in the method below
 	protected static final String getAllQuery = "SELECT * FROM events;";
 	protected static final String getByIdQuery = "SELECT * FROM events " + "WHERE id = ?";
 	protected static final String setQuery = "UPDATE events SET name = ?, description = ?, trigger_at = ?"
 			+ " WHERE id = ?;";
-	protected static final String addQuery = "INSERT INTO events" + 
-	" VALUES (?, ?, ?, ?, ?);";
-	protected static final String removeQuery = "";
+	protected static final String addQuery = "INSERT INTO events" + " VALUES (?, ?, ?, ?, ?);";
+	protected static final String removeQuery = "DELETE FROM events WHERE id=?;";
 
 	public EventsDAOImpl(Database context) {
 		this.context = context;
@@ -90,6 +87,12 @@ public class EventsDAOImpl implements EventsDAO {
 
 	@Override
 	public void remove(int id) {
-		// TODO: implement jdbc logic to remove event by id
+		try (Connection c = context.getConnection();) {
+			PreparedStatement ps = c.prepareStatement(removeQuery);
+			ps.setInt(1, id);
+			ps.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
